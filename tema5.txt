@@ -82,7 +82,7 @@ Falso??.
 	- b+a deberia devolver un objeto correcto.
 	- operator== no está definido en la presentaciones...
 
-7 [F] El resultado de realizar esta operación: char mascara = 1 << (500 % 8); es 0000100.
+7 [F] El resultado de realizar esta operación: char mascara = 1 << (500 % 8); es 00000100.
 
-Falso. El operador << mueve un bit la cantidad de pasos indicados a la derecha, es decir 4 (500%8) pasos.
-El resultado sería: 0010000
+Falso. El operador << mueve un bit la cantidad de pasos indicados a la izquierda, es decir 4 (500%8) pasos.
+El resultado sería: 00010000

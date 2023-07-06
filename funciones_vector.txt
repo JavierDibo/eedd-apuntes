@@ -166,15 +166,15 @@ Operador == (para vectores)
 	}
 	
 Operador = (para vectores)
-	Vector& operator=(Vector &arr) {
-		if (&arr != this) // Si no son ya iguales
+	Vector& operator=(Vector &other) {
+		if (&other != this) // Si no son ya iguales
 			if (this->mem != nullptr)
 				delete[] this->mem;
-			tam = arr.tam;
+			tam = other.tam;
 			
 			mem = new T[tam];
 			for (int i=0; i<tam; i++) {
-				mem[i] = arr.mem[i];
+				mem[i] = other.mem[i];
 			}	
 		return *this;
 	}
