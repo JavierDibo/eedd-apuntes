@@ -180,3 +180,34 @@ Falso??.
 
 Falso. El operador << mueve un bit la cantidad de pasos indicados a la izquierda, es decir 4 (500%8) pasos.
 El resultado sería: 00010000
+
+---
+
+## Tema 6
+
+1 [V] El tiempo para eliminar un dato en una posición arbitraria de una lista es lineal.
+
+Verdadero. Para borrar un dato tienes que llegar al dato recorriendo toda la lista.
+
+2 [V] El tiempo para eliminar un dato en una posición apuntada por un iterador es lineal.
+
+Verdadero. Para borrar un dato que no esté ni al inicio ni al final,
+tienes que recorrer la lista con el iterador hasta llegar a ella.
+
+3 [V] Para eliminar e insertar un dato en posiciones intermedias de una lista se necesita un puntero a la posición
+anterior al dato que se va a insertar/borrar.
+
+Verdadero. Es necesario pues hay que asignar al nodo anterior que el nodo nuevo es su nodo siguiente.
+
+4 [V] Se puede realizar la operación merge_sort entre dos listas ordenadas en tiempo O(n+m), siendo n y m los
+tamaños respectivos de ambas listas.
+
+Verdadero. Se tienen que comparar los datos una sola vez al insertarlos.
+
+5 [F] Un dato que permanece en una lista cambia su posición a veces al sufrir la lista inserciones y borrados.
+
+Falso. A menos que el dato sea manipulado directamente, su posición en memoria no cambia nunca.
+
+---
+
+## Tema 7

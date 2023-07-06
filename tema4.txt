@@ -22,14 +22,98 @@ Vectores
 			 O(n^2) - Implementacion trivial	
 
 Busqueda binaria lineal
+	1. Declaro inf, sup, centro
+	2. While (inf <= sup):
+	3. Calculo el centro
+	4. Check == centro
+	5. Si dato es mas chico, sup = centro -1
+	6. Si dato es mas grande, inf = centro + 1
+	7. -1 si no está
 
 Insercion en vectores dinamicos
 
-Funcion aumentar
+	Insercion al Principio
+		1. Check aumentar
+		2. Meto el dato
+		3. Aumento tamaño logico
+		
+	Insercion al Final
+		1. Check aumentar
+		2. Final hacia inicio: valor derecho = valor izquierdo
+		3. Meto el dato en pos 0
+		4. Aumento el tamaño logico
 
+	Insercion arbitraria
+		1. Check posicion valida
+		2. Check aumentar
+		3. Check insertarInicio
+		4. Check insertarFinal
+		5. Final hacia inicio: valor derecho = valor izquierdo HASTA POS
+		6. Meto el dato en POS
+		7. Aumento el tamaño logico
+	
 Borrado en vector dinamico
 
+	Borrado al Principio
+		1. Check disminuye
+		2. Copio el izquierdo en el derecho (hago hueco)
+		3. Reduzco el tamaño
+	
+	Borrado al Final
+		1. Check disminuye
+		2. Meto el dato al final
+		3. Reduzco el tamaño
+	
+	Borrado arbitrario
+		1. Check primero
+		2. Check ultimo
+		3. Check disminuye
+		4. Copio el izquierdo en el derecho EMPIEZO EN POS (hago hueco)
+		5. Reduzco el tamaño logico
+
+Funcion aumentar
+	1. tamF*=2
+	2. Creo vector auxiliar
+	3. Copio orig a aux
+	4. Borro orig
+	5. orig = aux
+
 Funcion disminuye
+	1. tamaF/=2
+	2. Creo vector auxliar
+	3. Copio orig en aux
+	4. Borro orig
+	5. orig = aux
+	
+Constructor copia
+	1. Copio los tamaños
+	2. Creo mem nuevo
+	3. Copio los valores
+
+Operador =
+	1. Check iguales
+	2. if mem, borro mem
+	3. Copio los tamaños
+	4. Declaro un mem nuevo
+	5. Copio los valores
+	6. Return *this
+	
+Operador [] vectores
+	1. Check pos
+	2. Returm mem[pos]
+	
+Operador == (para vectores)
+	1. Check == tam
+	2. Check si alguno distinto
+	3. Return true
+
+Operador=
+	1. Check iguales
+	2. if mem, borro mem
+	3. Copio el tamaño
+	4. Declaro un mem nuevo
+	5. Copio los valores
+	6. Return *this
 
 Composicion
 	La clase contenedora crea y destruye los objetos
@@ -39,7 +123,7 @@ Asociacion
 	La clase contenedora utiliza punteros YA EXISTENTES a objetos
 	NO se ocupa de la destruccion o creaccion de los objetos que usaç
 
-Cuando usar vectores
+Cuándo usar vectores
 	Cantidad pequeña
 	Indices enteros
 	Inserciones/borrados al final

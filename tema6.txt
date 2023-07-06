@@ -1,0 +1,193 @@
+Lista simplemente enlazada
+	Contenedor secuencial
+	Inserciones
+		1. Principio: O(1)
+		2. Intermedio: O(n)
+		3. Final: O(1)
+	Borrados
+		1. Principio: O(1)
+		2. Intermedio: O(n)
+		3. Final: O(n)
+	Busqueda/lectura: O(n)
+	NO contigua
+	
+Nodo
+	Capsula que contiene los datos en una lista simplemente
+	Dato
+	Puntero al siguiente nodo
+	
+Estructura de una lista enlazada
+	- Secuencia de nodos enlazados
+	- cabecera
+	- cola
+	- Ultimo nodo apunta a `nullptr`
+
+Casos especiales
+	- Lista vacía
+	- Lista con un solo elemento
+	- Lista con dos elementos
+	- (Normal) Lista con dos o más elementos
+
+Iteradores
+	Clase que permite realizar un recorrido sobre una coleccion de elementos
+	Encapsula un puntero
+	Operaciones
+	Construido y deuvelto por la clase Lista
+	Siempre se inicia al primer nodo (cabecera)
+	
+Opearciones de un iterador
+	fin()
+	siguiente()
+	Leer/Modificar:
+		1. T &dato() { return nodo->dato; }
+		2. T &operator*() { return nodo->dato; }
+		
+Llamar a un iterador
+	auto it = lista.iterador();
+	
+Usar un iterador
+	while ( !it.fin() ) {
+		i.dato() = 0;
+		i.siguiente();
+	}
+
+Insercion
+	
+	Insercion al Principio
+		1. Creo nodo a cabecera
+		2. Si NO cola, cola = nuevo
+		3. cabecera = nuevo
+	
+	Insercion al Final
+		1. Creo nodo a nullptr
+		2. Si cola, cola->sig = nuevo
+		3. Si NO cabecera, cabecera = nuevo
+		4. cola = nuevo	
+	
+	Insercion arbitraria
+		1. Si it.nodo == cabecera, insertarPrincipio.
+		2. Creo nodo NUEVO hacia it.nodo
+		3. Creo un iterador (nodo) AUX
+		4. Recorro hasta que el siguiente sea el nodo
+		5. AUX->sig = NUEVO	
+	
+Borrado
+
+	Borrado al Principio
+		1. Si cabecera
+		2. Creo nodo = cabecera
+		3. Avanzo cabecera
+		4. Si !cabecera, cola = 0
+		5. Borro el nodo
+	
+	Borrado al Final
+		1. Si !cola, return
+		2. Si cola == cabecera, borro
+		3. Creo un nodo ANTERIOR = cabecera
+		4. Avanzo hasta el anterior de cola
+		5. Borro cola
+		6. Actualizo cola
+		7. Borro el valor SIG de anterior
+	
+	Borrado arbitrario
+		1. Si !cabecera o !it, return
+		2. Si it primera posicion, avanzo cabeza y borro. FIN
+		3. Creo un nodo ACTUAL = cabecera
+		4. Avanzo hasta el anterior al it
+		5. Actual->SIG a it->SIG
+		6. Si it == cola la actualizo
+		7. Borro
+	
+Constructor copia
+	1. Todo a nullptr
+	2. Tomo un iterador de la otra lista
+	3. Para cada nodo lo inserto al final
+	4. Avanzo el iterador
+
+Operador asignacion
+	1. Check si ya son iguales
+	2. Borrar lista actual
+	3. Copiar los elementos de la otra lista
+	4. Return *this
+	
+MergeSort en dos listas
+	Tiene tiempo O(n+m)
+	n tam lista N
+	m tam lista M
+	
+---
+
+## Ejercicios
+
+1 [V] El tiempo para eliminar un dato en una posición arbitraria de una lista es lineal.
+
+Verdadero. Para borrar un dato tienes que llegar al dato recorriendo toda la lista.
+
+2 [V] El tiempo para eliminar un dato en una posición apuntada por un iterador es lineal.
+
+Verdadero. Para borrar un dato que no esté ni al inicio ni al final,
+tienes que recorrer la lista con el iterador hasta llegar a ella.
+
+3 [V] Para eliminar e insertar un dato en posiciones intermedias de una lista se necesita un puntero a la posición
+anterior al dato que se va a insertar/borrar.
+
+Verdadero. Es necesario pues hay que asignar al nodo anterior que el nodo nuevo es su nodo siguiente.
+
+4 [V] Se puede realizar la operación merge_sort entre dos listas ordenadas en tiempo O(n+m), siendo n y m los
+tamaños respectivos de ambas listas.
+
+Verdadero. Se tienen que comparar los datos una sola vez al insertarlos.
+
+5 [F] Un dato que permanece en una lista cambia su posición a veces al sufrir la lista inserciones y borrados.
+
+Falso. A menos que el dato sea manipulado directamente, su posición en memoria no cambia nunca.
+
+---
+
+1. Crear el constructor de la lista a partir de un objeto de la clase Vector:
+
+	ListaEnlazada<T>::insertarFinal(T& dato) {
+		
+		Nodo<T>* nuevo = new Nodo<T>(dato, nullptr);
+		
+		if (cola)
+			cola->sig = nuevo;
+			
+		if (!cabecera)
+			cabecera = nuevo;
+			
+		cola = nuevo;
+	}
+
+	ListaEnlazada<T>::ListaEnlazada(Vector<T> v) {
+		
+		if (!v.size())
+			cabecera = cola = nullptr;
+		
+		Nodo<T>* nuevo;
+		
+		for (int i=0; i<v.size(); i++) {
+			insertarFinal(v[i]);
+		}
+	}
+	
+2. Implementar la primitiva que invierta el orden de una lista en tiempo lineal, de manera que el dato de la
+cabecera esté en la cola y viceversa.
+
+	void ListaEnlazada<T>::invertir() {
+	
+		Nodo<T>* p = nullptr;
+		Nodo<T>* a = cabecera;
+		Nodo<T>* s = nullptr;
+		
+		cola = cabecera;
+		
+		while (a) {
+			s = a->sig;
+			a->sig = p;
+			p = a;
+			a = s;
+		}
+		
+		cabecera = p;	
+	}

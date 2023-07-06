@@ -2,6 +2,7 @@ Busqueda binaria lineal
 
 	// Vector estatico ORDENADO
 	int VEst::busquedaBinaria(int dato) {
+		
 		int inf = 0;
 		int sup = tam - 1;
 		int centro;
@@ -22,6 +23,10 @@ Busqueda binaria lineal
 	
 Insercion en vectores dinamicos
 
+	1. Check aumentar
+	2. Meto el dato en pos tamL
+	3. Aumento tamaño logico
+
 	void VDin::insertarFinal(int dato) {
 		if (tamL == tamF)
 			aumentar();
@@ -29,6 +34,11 @@ Insercion en vectores dinamicos
 		mem[tamL] = dato;
 		tamL++;	
 	}
+	
+	1. Check aumentar
+	2. Final hacia inicio: valor derecho = valor izquierdo
+	3. Meto el dato en pos 0
+	4. Aumento el tamaño logico
 	
 	void VDin::insertarInicio(int dato) {
 		if (tamL == tamF)
@@ -41,6 +51,14 @@ Insercion en vectores dinamicos
 		mem[0] = dato;
 		tamL++;		
 	}
+	
+	1. Check posicion valida
+	2. Check aumentar
+	3. Check insertarInicio
+	4. Check insertarFinal
+	5. Final hacia inicio: valor derecho = valor izquierdo HASTA POS
+	6. Meto el dato en POS
+	7. Aumento el tamaño logico
 	
 	void VDin::insertar(int dato, int pos) {
 		if(pos < 0 || pos > tamL) {
@@ -71,6 +89,12 @@ Insercion en vectores dinamicos
 
 Funcion aumentar
 
+	1. tamF*=2
+	2. Creo vector auxiliar
+	3. Copio orig a aux
+	4. Borro orig
+	5. orig = aux
+
 	void VDin::aumenta() {
 		tamF = tamF*2;
 		int* aux = new int[tamF];
@@ -84,6 +108,10 @@ Funcion aumentar
 	
 Borrado en vector dinamico
 
+	1. Check disminuye
+	2. Meto el dato al final
+	3. Reduzco el tamaño
+
 	int borrarUltimo() {
 		if (tamaL - 1 < (tamaF/3))
 			disminuye();
@@ -93,6 +121,10 @@ Borrado en vector dinamico
 		tamaL--;
 		return dato;
 	}
+	
+	1. Check disminuye
+	2. Copio el izquierdo en el derecho (hago hueco)
+	3. Reduzco el tamaño
 	
 	int borrarPrimero() {
 		if (tamaL - 1 < (tamaF/3))
@@ -108,15 +140,22 @@ Borrado en vector dinamico
 		return dato;
 	}
 	
+	1. Check primero
+	2. Check ultimo
+	3. Check disminuye
+	4. Copio el izquierdo en el derecho EMPIEZO EN POS (hago hueco)
+	5. Reduzco el tamaño logico
+	
 	int borrar(int pos) {
+	
+		if (tamaL - 1 < (tamaF/3))
+			disminuye();
+	
 		if (pos == 0)
 			return borrarPrimero();
 		
 		if (pos == tamaL - 1)
-			return borrarUltimo();		
-	
-		if (tamaL - 1 < (tamaF/3))
-			disminuye();
+			return borrarUltimo();			
 	
 		int dato = mem[pos];
 		
@@ -129,6 +168,12 @@ Borrado en vector dinamico
 	}
 	
 Funcion disminuye
+
+	1. tamaF/=2
+	2. Creo vector auxliar
+	3. Copio orig en aux
+	4. Borro orig
+	5. orig = aux
 
 	disminuye() {
 		
@@ -147,6 +192,10 @@ Funcion disminuye
 
 	
 Operador []
+	
+	1. Check pos
+	2. Returm mem[pos]
+
 	T &operator[](int pos)
 	if (pos < 0 || pos >= tamL) {
 		std::cout << "Posicion invalida"
@@ -154,6 +203,11 @@ Operador []
 	return mem[pos]
 
 Operador == (para vectores)
+
+	1. Check == tam
+	2. Check si alguno distinto
+	3. Return true
+	
 	bool operator==(Vector &arr) {
 		if (tam != arr.tam)
 			return false;
@@ -165,16 +219,51 @@ Operador == (para vectores)
 		return true;
 	}
 	
-Operador = (para vectores)
-	Vector& operator=(Vector &other) {
-		if (&other != this) // Si no son ya iguales
-			if (this->mem != nullptr)
-				delete[] this->mem;
-			tam = other.tam;
-			
-			mem = new T[tam];
-			for (int i=0; i<tam; i++) {
-				mem[i] = other.mem[i];
-			}	
-		return *this;
-	}
+Operador= (para vectores)
+
+	1. Check iguales
+	2. if mem, borro mem
+	3. Copio los tamaños
+	4. Declaro un mem nuevo
+	5. Copio los valores
+	6. Return *this
+
+	VDinamicoInt& VDinamicoInt::operator=(const VDinamicoInt& orig) {
+    if (this != &orig) {
+	
+        delete[] mem; 
+        
+       
+        tamal = orig.tamal;
+        tamaf = orig.tamaf;
+        
+        mem = new int[tamaf]; 
+       
+        for (int i = 0; i < tamal; i++) {
+            mem[i] = orig.mem[i];
+        }
+    }
+
+    return *this;
+}
+
+	
+Constructor copia
+	
+	1. Copio los tamaños
+	2. Creo mem nuevo
+	3. Copio los valores	
+	
+	VDinamicoInt::VDinamicoInt(const VDinamicoInt& orig) {
+		
+		tamal = orig.tamal;
+		tamaf = orig.tamaf;
+		
+		mem = new int[tamaf];
+
+		for(int i = 0; i < tamal; ++i) {
+			mem[i] = orig.mem[i];
+		}
+}
+
+	

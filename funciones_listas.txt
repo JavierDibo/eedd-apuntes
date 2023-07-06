@@ -1,37 +1,192 @@
 Insercion al Principio
+
+	1. Creo nodo a cabecera
+	2. Si NO cola, cola = nuevo
+	3. cabecera = nuevo
 	
-	void ListaSimple::insertarPrincipio(T dato) {
+	void ListaSimple<T>::insertarPrincipio(T &dato) {
 		
 		Nodo<T> *nuevo = new Nodo<T>(dato, cabecera);
 		
-		if (cola == nullptr)
+		if (!cola)
 			cola = nuevo;
 			
 		cabecera = nuevo
 	}
 
 Insercion al Final
-	
+	1. Creo nodo a nullptr
+	2. Si cola, cola->sig = nuevo
+	3. Si NO cabecera, cabecera = nuevo
+	4. cola = nuevo	
 
-	void ListaSimple::insertarFinal(T dato) {
+	void ListaSimple<T>::insertarFinal(T &dato) {
 		
-		Nodo<T>* nuevo = new Nodo<T>(dato, nullptr)
+		Nodo<T>* nuevo = new Nodo<T>(dato, nullptr);
 		
-		if (cola != nullptr)
+		if (cola)
 			cola->sig = nuevo;
 			
-		if (cabecera == nullptr)
+		if (!cabecera)
 			cabecera = nuevo;
 		
 		cola = nuevo;
 	}
 
 Insercion arbitraria
+
+	1. Si it.nodo == cabecera, insertarPrincipio.
+	2. Creo nodo NUEVO hacia it.nodo
+	3. Creo un iterador (nodo) AUX
+	4. Recorro hasta que el siguiente sea el nodo
+	5. AUX->sig = NUEVO	
 	
-	void ListaSimple::insertar(, T dato) {
+	void ListaSimple<T>::insertar(Iterador<T> &it, T &dato) {
 		
+		if (it.nodo == cabecera) {
+			insertarPrincipio(dato);		
+			return;
+		}
 		
+		Nodo<T> *nuevo = new Nodo<T>(dato, it.nodo);
+		auto itAux = iterador();
+			
+		while (!itAux.fin() && itAux.nodo->sig != it.nodo)
+			itAux.siguiente();
+			
+		itAux.nodo->sig = nuevo;	
+			
+	}
 	
+Borrado al principio
+
+	1. Si cabecera
+	2. Creo nodo = cabecera
+	3. Avanzo cabecera
+	4. Si !cabecera, cola = 0
+	5. Borro el nodo
+
+	void listaSimple<T>::borrarInicio() {
+		if (cabecera) {
+			Nodo<T> *nodoBorrado = cabecera;
+			cabecera = cabecera->sig;
+			
+			if (!cabecera)
+				cola = nullptr;
+			
+			delete nodoBorrado; 
+    }
+}
 	
+Borrado al final
 	
+	1. Si !cola, return
+	2. Si cola == cabecera, borro
+	3. Creo un nodo ANTERIOR = cabecera
+	4. Avanzo hasta el anterior de cola
+	5. Borro cola
+	6. Actualizo cola
+	7. Borro el valor SIG de anterior
+
+
+	void listaSimple<T>::borrarFinal() {
+		
+		if (!cola)
+			return;
+		
+		if (cola == cabecera) {
+			delete cabecera;
+			cola = cabecera = nullptr;
+			return;
+		}
+		
+		Nodo<T>* anterior = cabecera;
+		
+		while (anterior->sig != cola) {
+			anterior = anterior->sig;
+		}
+		
+		delete cola;
+		cola = anterior;
+		anterior->sig = nullptr;
+	}
+	
+Borrado arbitrario
+
+	1. Si !cabecera o !it, return
+	2. Si it primera posicion, avanzo cabeza y borro. FIN
+	3. Creo un nodo ACTUAL = cabecera
+	4. Avanzo hasta el anterior al it
+	5. Actual->SIG a it->SIG
+	6. Si it == cola la actualizo
+	7. Borro
+	
+	void listaSimple<T>::borrar(Iterador<T> &i) {
+		if (!cabecera || i.fin()) return;
+
+		if (i.nodo == cabecera) {
+			cabecera = cabecera->sig;
+			delete i.nodo;
+			i.nodo = cabecera;
+			return;
+		}
+			
+		Nodo<T> *actual = cabecera;
+		
+		while (actual && actual->sig != i.nodo) { 
+			actual = actual->sig;
+		}
+		
+		if (!actual) return;
+			actual->sig = i.nodo->sig; 
+			if (i.nodo == cola) {
+				cola = actual;
+		}
+		
+		delete i.nodo;
+		i.nodo = actual->sig;  // El iterador apunta ahora al nodo siguiente
+	}
+
+Constructor copia
+
+	1. Todo a nullptr
+	2. Tomo un iterador de la otra lista
+	3. Para cada nodo lo inserto al final
+	4. Avanzo el iterador
+
+	ListaEnlazada<T>::ListaEnlazada(const ListaEnlazada<T> &other) {
+		cabecera = cola = nullptr;
+		Nodo<T> *tmp = other.cabecera;
+		while (tmp != nullptr) {
+			this->insertarFinal(tmp->dato);
+			tmp = tmp->sig;
+		}
+	}
+
+Operador de asignacion
+
+	1. Check si ya son iguales
+	2. Borrar lista actual
+	3. Copiar los elementos de la otra lista
+	4. Return *this
+
+	ListaEnlazada<T>& ListaEnlazada<T>::operator=(ListaEnlazada<T> &other) {
+		
+		if (this == &other)
+			return *this;
+
+		while (cabecera != nullptr) {
+			Nodo<T>* tmp = cabecera;
+			cabecera = cabecera->sig;
+			delete tmp;
+		}
+		cabecera = cola = nullptr;
+
+		Nodo<T>* tmp = other.cabecera;
+		while (tmp != nullptr) {
+			this->insertarFinal(tmp->dato);
+			tmp = tmp->sig;
+		}
+
+		return *this;
 	}
