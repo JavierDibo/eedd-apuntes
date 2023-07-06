@@ -1,0 +1,180 @@
+Busqueda binaria lineal
+
+	// Vector estatico ORDENADO
+	int VEst::busquedaBinaria(int dato) {
+		int inf = 0;
+		int sup = tam - 1;
+		int centro;
+	
+		while (inf <= sup) {
+			centro = (inf + sup) / 2;
+			
+			if (dato == mem[centro])
+				return centro;
+			else if (dato < mem[centro])
+				sup = centro - 1;
+			else
+				inf = centro + 1;
+		}
+		
+		return -1;
+	}
+	
+Insercion en vectores dinamicos
+
+	void VDin::insertarFinal(int dato) {
+		if (tamL == tamF)
+			aumentar();
+	
+		mem[tamL] = dato;
+		tamL++;	
+	}
+	
+	void VDin::insertarInicio(int dato) {
+		if (tamL == tamF)
+			aumentar();
+		
+		for(int i=tamL; i>0; i--) {
+			mem[i] = mem[i-1];
+		}
+		
+		mem[0] = dato;
+		tamL++;		
+	}
+	
+	void VDin::insertar(int dato, int pos) {
+		if(pos < 0 || pos > tamL) {
+			std::cout << "Posicion invalida";
+			return;
+		}	
+		
+		if (tamL == tamF)
+			aumentar();
+		
+		if (pos == 0) {
+			insertarInicio(dato);
+			return;
+		}
+		
+		if (pos == tamL) {
+			insertarFinal(dato);
+			return;
+		}		
+		
+		for(int i=tamL; i>pos; i--) {
+			mem[i] = mem[i-1];
+		}
+		
+		mem[pos] = dato;
+		tamL++;	
+	}
+
+Funcion aumentar
+
+	void VDin::aumenta() {
+		tamF = tamF*2;
+		int* aux = new int[tamF];
+		
+		for(int i=0; i<tamL; i++) {
+			aux[i] = mem[i];
+		}
+		delete[] mem;
+		mem = aux;
+	}
+	
+Borrado en vector dinamico
+
+	int borrarUltimo() {
+		if (tamaL - 1 < (tamaF/3))
+			disminuye();
+	
+		int dato = mem[tamaL-1];
+		
+		tamaL--;
+		return dato;
+	}
+	
+	int borrarPrimero() {
+		if (tamaL - 1 < (tamaF/3))
+			disminuye();
+			
+		int dato = mem[0];
+		
+		for (int i=0; i<tamaL; i++) {
+			mem[i] = mem[i+1];	
+		}
+		
+		tamaL--;
+		return dato;
+	}
+	
+	int borrar(int pos) {
+		if (pos == 0)
+			return borrarPrimero();
+		
+		if (pos == tamaL - 1)
+			return borrarUltimo();		
+	
+		if (tamaL - 1 < (tamaF/3))
+			disminuye();
+	
+		int dato = mem[pos];
+		
+		for (int i=pos; i<tamaL; i++){
+			mem[i] = mem[i+1];
+		}
+		
+		tamaL--;
+		return dato;		
+	}
+	
+Funcion disminuye
+
+	disminuye() {
+		
+		tamaF = tamaF / 2;
+		
+		int* aux = new int[tamaF];
+		
+		for (int i=0; i<tamaL; i++) {
+			aux[i] = mem[i];		
+		}
+		
+		delete[] mem;
+		
+		mem = aux;
+	}
+
+	
+Operador []
+	T &operator[](int pos)
+	if (pos < 0 || pos >= tamL) {
+		std::cout << "Posicion invalida"
+	}
+	return mem[pos]
+
+Operador == (para vectores)
+	bool operator==(Vector &arr) {
+		if (tam != arr.tam)
+			return false;
+		
+		for (int i=0; i < tam; i++)
+			if (mem[i] != arr.mem[i])
+				return false;
+		
+		return true;
+	}
+	
+Operador = (para vectores)
+	Vector& operator=(Vector &arr) {
+		if (&arr != this) // Si no son ya iguales
+			if (this->mem != nullptr)
+				delete[] this->mem;
+			tam = arr.tam;
+			
+			mem = new T[tam];
+			for (int i=0; i<tam; i++) {
+				mem[i] = arr.mem[i];
+			}	
+		return *this;
+	}

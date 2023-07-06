@@ -1,0 +1,155 @@
+Tipos de asignacion de memoria
+	Estatica
+	Automatica -- Stack
+	Dinamica -- Heap
+	
+Asignacion de memoria estatica (static)
+	- Tiempo de compilacion
+	- Almacena variables constantes y globales
+
+Asignacion de memoria automatica 
+	Ejecucion en runtime
+	Almacenamiento en la PILA (stack)
+	Se libera al salir de cada funcion
+
+Gestion de la PILA
+	Tiene un tamaño fijo
+	Crece en direccion al codigo compilado
+	Asignacion RAPIDA y sencilla
+
+Asignacion de memoria dinamica
+	Almacenamiento en el heap
+	Puede utilizar toda la memoria disponible
+	Punteros y arrays
+	Necesidad de constructor copia y vector de asignacion
+
+Gestion del HEAP
+	Cantidad de memoria abundante
+	Asignacion LENTA en comparacion a la pila
+	Manejo manual mediante punteros
+	
+Punteros dobles
+	Puntero -> Puntero -> Entero
+	Puntero -> Puntero[] -> Entero
+
+Implementacion de punteros dobles
+	Puntero -> Puntero -> Entero
+		int **p = new int*;
+		*p = new int;
+		**p = 3;
+		
+	Puntero -> Puntero[] -> Entero
+		int **p = new int*[5]
+		for (int i = 0; i < 5; i++) {
+			p[i] = new int;
+			*p[i] = 69 + i;
+		}
+
+Heap overflow
+	Acceder a una zona de memoria no asignada
+
+Memory leak
+	Se reserva memoria pero no se libera
+
+bad_alloc
+	Excepcion lanzada cuando no hay memoria suficiente para reservar
+
+Liberacion de memoria
+	- Para cada new debe existir un delete
+	- Los arrays se liberan con delete[]
+	
+Templates -- Patrones
+	template<class T> class Vector {}
+	Vector<int>
+	Completamente en el fichero .cpp
+	
+Operadores
+	Unarios
+	Binarios
+
+Operadores unarios
+	++a --> Clase::operator++()
+	a++ --> Clase::operator++(int)
+	*a --> Clase::operator*()
+
+Operadores binarios
+	a+=b --> ClaseA& ClaseA::operator+=(ClaseB &b)
+	a+b --> ClaseA ClaseA::operator+(ClaseB &b)
+	a<b --> bool ClaseA::operator<(ClaseB &b)
+	
+---
+
+## Ejercicios
+
+1 [V] La siguiente declaración: int** p permite crear las siguientes estructuras de datos en memoria:
+	se crea:
+		- un puntero simple a simple (**p = 1)
+			p = new int*;
+			*p = new int;
+		- un array de punteros (*p[i] = 1)
+			p = new int*[]
+			for(): p[i] = new int;
+		- un array a un array (p[i][j] = 1)
+			p = new int*[]
+			for(): p = new int[]
+
+2 [V] Si la declaración del puntero anterior p se realiza como se muestra a continuación entonces p es creado como
+una variable residente en la pila de aplicación:
+
+	void f() {
+		int **p;
+		...
+	}
+
+Las declaraciones automáticas se realizan en la pila.
+
+3 [V] Una matriz declarada como int a[3][5] se almacena en una zona contigua de memoria
+
+Las matrices son reservadas al mismo tiempo en zonas contiguas.
+
+4 [V] Sea m1 una matriz declarada como int m1[10][20] y m2 un puntero declarado como int **m2 e iniciado
+mediante el siguiente código:
+
+	m2 = new int*[10];
+	for (int c = 0; c < 10; ++c) {
+		m2[c] = new int[20];
+	}
+
+Entonces el elemento existente en la posición (3, 7) se accede de igual manera con ambas estructuras de datos:
+m1[3][7] / m2[3][7].
+
+Verdadero, las dos declaraciones son equivalentes, por lo tanto, su forma de acceso también.
+
+5. [V] El siguiente código presenta memory leaks:
+
+	int *p = new int[1000];
+		for (int c = 0; c <= 1000; ++c) {
+		p[c] = 0;
+	}
+
+Verdadero. Si se asume que este es todo el código, entonces no se libera la memoria y por lo tanto existe un memory leak.
+	Ademas se presenta un heap overflow ( c <= 1000 ).
+
+6 [F] El siguiente código presenta heap overflows:
+	
+	int *p;
+	for (int c = 0; c < 10; ++c) {
+		p = new int[100];
+	}
+
+Falso. No se esta intentando acceder a memoria sin reservar.  Lo que esta ocurriendo es un memory leak. No se está usando delete[].
+
+7 [V] Una plantilla de clase instanciable para el tipo T = int puede que no lo sea para el tipo T = MiClase, es
+decir, que una plantilla puede no aceptar cualquier tipo como parámetro.
+
+Verdadero. Si la clase es muy distinta en sus operadores, por ejemplo una clase Matriz, la platilla no funcionaría correctamente.
+
+8 [V] A través el puntero int **m podemos manejar una matriz creada en memoria dinámica con un número de filas
+y columnas arbitrario.
+
+Verdadero. Se puede declarar una matriz de cualquier tamaño usando memoria dinámica (new) con el código:
+
+	m = new int*[p]
+	for (int i=0; i<p; i++)
+		m[i] = new int[q]
+

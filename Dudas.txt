@@ -1,0 +1,51 @@
+## Tema 3: 
+
+6 [F] El siguiente código presenta heap overflows:
+	
+	int *p;
+	for (int c = 0; c < 10; ++c) {
+		p = new int[100];
+	}
+
+Falso. No se esta intentando acceder a memoria sin reservar.  Lo que esta ocurriendo es un memory leak. No se está usando delete[].
+
+7 [V] Una plantilla de clase instanciable para el tipo T = int puede que no lo sea para el tipo T = MiClase, es
+decir, que una plantilla puede no aceptar cualquier tipo como parámetro.
+
+Verdadero. Si la clase es muy distinta en sus operadores, por ejemplo una clase Matriz, la platilla no funcionaría correctamente.
+
+## Tema 4:
+
+3 [V] La siguiente definición de vector estático necesita de constructor copia y operador de asignación:
+
+	template<typename T> class MiVect{
+			int tama;
+			T *v;
+		public:
+			MiVect(int n){ 
+				tama = n;
+				v = new T[tama]; 
+			}
+		...
+	};
+
+Verdadero. Toda estructura de datos completa necestia un vector de asignación y copia para poder hacer uso 
+de los recursos dinamicos automaticso de C++.
+
+## Tema 5:
+
+1 [V] El operador de asignación de la clase Matriz<T>::operator= debe siempre destruir la matriz destino de la
+asignación.
+
+Verdadero. La implementacion implica eliminar la primera matriz (codigo en las presentaciones), 
+pues la matriz a asignar puede tener unas dimensiones distintas.
+
+SIEMPRE???
+
+6 [F] a.intersec(b+a) == a es correcto
+
+Falso??. 
+	- intersec se usa así.
+	- b+a deberia devolver un objeto correcto.
+	- operator== no está definido en la presentaciones...
+

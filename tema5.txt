@@ -1,0 +1,88 @@
+Matriz
+	Contenedor de tipo VECTOR que se maneja con dos indices (i x j)
+		1. Filas (i)
+		2. Columnas (j)
+	Zona CONTIGUA de memoria que contiene objetos del mismo tipo
+
+Operadores
+	Todos sus operadoresX devuelven objeto por referencia
+
+Conjuntos mediante conjuntos de bits (chars)
+	Tamaño maximo conocido
+	Muy eficiente en tiempo
+	Muy eficiente en espacio
+	Menos versatil
+
+Funcionamiento de conjunto de bits
+	Vector de char(bits) [1 o 0]
+	Si bit i=1 entonces el elemnto i-esimo esta presente
+	Como cada 1 byte = 8 bits  es como una matriz n x 8
+		n/8 -> byte
+		n%8 -> bit concreto [1-8]
+		
+Eficiencia de conjuntos de bits
+	Union
+	Resta
+	Interseccion: O(n)
+	
+	Insercion
+	Borrado
+	Contiene: O(1)
+
+Conjuntos mediante vectores
+	Poco eficiente
+	Mas versatil
+
+Versatilidad de conjuntos por vector
+	Tamaño infinito
+	Mas facilidad de implementacion
+
+Eficiencia conjuntos por vector
+	Union
+	Resta
+	Interseccion: O(n^2)
+	
+	Insercion
+	Borrado
+	Contiene: O(n)
+
+---
+
+## Ejercicios
+	
+1 [V] El operador de asignación de la clase Matriz<T>::operator= debe siempre destruir la matriz destino de la
+asignación.
+
+Verdadero. La implementacion implica eliminar la primera matriz, pues la matriz a asignar puede tener unas dimensiones distintas.
+
+SIEMPRE???
+
+2 [F] El operador de la clase Matriz<T>::operator+= devuelve el objeto resultado por copia.
+
+Falso. Estos operadores devuelven una referencia al objeto.
+
+3 [F] La implementación de conjuntos mediante vectores realiza la intersección en tiempo lineal.
+
+Falso. La intersección se realiza comprobando la existencia de cada numero en A dentro de B, es decir, O(n^2).
+
+4 [V] El problema que poseen los conjuntos de bits es que el ID de un elemento debe ser un entero desde 0 hasta el
+tamaño del conjunto -1. Para convertirlo en un ID genérico se necesita otra EEDD.
+
+Verdadero. Los objetos están codificados en numeros enteros, donde n/8 se refiere a su byte, y n%8 a su bit.
+Cada conjunto debe recibir nombres con valores numéricos enteros. Se tiene que usar otra EEDD, como un par, para asociar una etiqueta.
+
+5 [F] Para almacenar 3841 datos en un conjunto de bits, debo crear un buffer de 480 bytes.
+
+Falso. 480*8 = 3841, necesitamos un byte extra para almacenar el siguiente bit (dato).
+
+6 [F] a.intersec(b+a) == a es correcto
+
+Falso??. 
+	- intersec se usa así.
+	- b+a deberia devolver un objeto correcto.
+	- operator== no está definido en la presentaciones...
+
+7 [F] El resultado de realizar esta operación: char mascara = 1 << (500 % 8); es 0000100.
+
+Falso. El operador << mueve un bit la cantidad de pasos indicados a la derecha, es decir 4 (500%8) pasos.
+El resultado sería: 0010000

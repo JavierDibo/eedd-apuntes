@@ -1,0 +1,106 @@
+Estructura de datos -- EEDD
+	Forma concreta de almacenar y organizar informacion en un sistema informatico 
+	para poder usarlo de forma eficiente
+
+Contenedor
+	Estructura de datos donde se almacena un conjunto de objetos
+	
+Tipo de dato abstracto -- TDA
+	Estructura abstracta usada para almacenar objetos
+	De esta solo conocemos las operaciones que nos ofrece y nada de su 
+	 funcionamiento interno
+
+Clase de objetos
+	Representacion simbolica de una TDA en algun lenguaje de programacion
+	 orientado a objetos
+
+Clasificacion de las EEDD
+	Por tipo de acceso
+	Por estructura interna
+	Por manejo de memoria
+	Por ubicacion en el almacenamiento
+	Por dimensionalidad
+
+Tipo de acceso
+	Directo
+	Secuencial
+	Por clave
+
+EEDD con acceso directo
+	Vectores
+	Matrices
+	Pilas
+	Colas
+	
+EEDD con acceso secuencial
+	Listas
+	Matrices dispersas
+
+EEDD con acceso por clave
+	Arboles
+	Tablas hash
+	
+Estructura interna
+	Lineal
+	No lineal
+	
+EEDD con estructura lineal
+	Vectores
+	Listas
+	Pilas
+	Matrices
+
+EEDD con estructura NO lineal
+	Heaps
+	Arboles AVL
+	Quadtree
+	Grafos
+	
+Manejo de memoria
+	Estatico
+	Dinamico
+
+EEDD con manejo de memoria estatico
+	Vectores fijos
+	Matrices fijas
+
+EEDD con manejo de memoria dinamico
+	Listas
+	Vectores dinamicos
+	Arboles
+
+Ubicaciones de almacenamiento
+	Memoria
+	Fichero
+	Mixtos
+
+EEDD con almacenamiento en memoria
+	Vectores
+	Listas
+	Pilas
+	
+EEDD con almacenamiento en ficheros
+	Arboles B
+	Ficheros dispersos
+
+EEDD con almacenamiento mixto
+	Indices simples
+	Indices secundarios
+	
+EEDD unidimensionales
+	Vectores
+	Listas
+	Pilas
+	
+EEDD eficientes en busqueda
+	Arboles AVL
+	Tablas hash
+	
+Contenedor asociativo
+	Una EEDD que utiliza acceso por clave
+
+Operaciones de una EEDD
+	Insertar
+	Borrar
+	Buscar
+	Ordenar

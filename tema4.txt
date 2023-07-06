@@ -1,0 +1,111 @@
+Vector -- array
+	Zona CONTIGUA de memoria que contiene objetos del mismo tipo
+	
+Vector estatico
+	Zona contigua FIJA de memoria
+	No puede crecer o decrecer
+
+Vector dinamico
+	Tiene asignado un espacio inicial
+	Crece o decrece en funcion de la cantidad de datos
+
+Vectores
+	EEDD lineal
+	Insercion aleatoria: O(n)
+			  inicio: O(n)
+			  final: O(1)
+	Borrar: O(n)
+	Acceso: O(1)
+	Busqueda: O(log n) - Binaria
+			  O(n) - Lineal
+	Ordenar: O(log n) - Quicksort
+			 O(n^2) - Implementacion trivial	
+
+Busqueda binaria lineal
+
+Insercion en vectores dinamicos
+
+Funcion aumentar
+
+Borrado en vector dinamico
+
+Funcion disminuye
+
+Composicion
+	La clase contenedora crea y destruye los objetos
+	Se efectua con punteros
+
+Asociacion
+	La clase contenedora utiliza punteros YA EXISTENTES a objetos
+	NO se ocupa de la destruccion o creaccion de los objetos que usaç
+
+Cuando usar vectores
+	Cantidad pequeña
+	Indices enteros
+	Inserciones/borrados al final
+	Vector ordenado para hacer busqueda binaria
+	Pocas inserciones
+	
+---
+
+## Ejercicios
+
+1 [V] Un vector dinámico es una estructura de datos básica que puede ser utilizada en la implementación de
+asociaciones y composiciones múltiples cuando no hay restricciones o necesidades especiales en las mismas.
+
+Verdadero. Es una estructura versátil que puede usarse para la mayoría de relaciones entre clases debido a su 
+  insercion en O(1) al final.
+
+2 [F] Un dato almacenado en un vector dinámico que permanece en dicha estructura de datos a lo largo de todo su
+ciclo de vida nunca cambia su posición de memoria.
+
+Falso. Se puede dar que el mismo dado cambie de array y por tanto de posisicón de memoria cuando el vector 
+  disminuye/aumenta de tamaño en el paradigma de vectores dinámicos estudiado.
+
+3 [V] La siguiente definición de vector estático necesita de constructor copia y operador de asignación:
+
+	template<typename T> class MiVect{
+			int tama;
+			T *v;
+		public:
+			MiVect(int n){ 
+				tama = n;
+				v = new T[tama]; 
+			}
+		...
+	};
+
+Verdadero. Toda estructura de datos completa necestia un vector de asignación y copia para poder hacer uso 
+de los recursos dinamicos automaticso de C++.
+
+
+4 [F] La misma clase anterior debe definir así el operador corchete “[ ]” para que funcione correctamente (se obvian
+las comprobaciones de rango):
+
+	T operator[](unsigned i) { 
+		return v[i]; 
+	}
+
+Falso. El operador corchete debe devolver una referencia al objeto, no una copia.
+	
+5 [F] Si se ha instanciado en la clase Biblioteca a Mivect para implementar una relación de asociación con la clase
+Libro como:
+
+	MiVect<Libro*> estante;
+	
+Entonces el destructor de Biblioteca debe entonces eliminar estante ejecutando:
+	
+	delete[] estante;
+
+Falso. La asociación implica utilizar objetos ya existentes con un ciclo de vida independiente. La clase Biblioteca no
+tiene que eliminar a estante.
+
+7 [V] Es posible eliminar una posición de un vector dinámico en tiempo O(1) si no es necesario preservar el orden
+de los datos.
+
+Verdadero. Se intercambia el valor del objeto final con el objeto en la posición a eliminar en O(1).
+
+8 [F] La implementación normal de un vector dinámico implementa una reducción del tamaño físico tamf a la mitad
+cuando el tamaño lógico taml cae por debajo de tamf/2.
+
+Falso. Esta reducción sucede cuando el tamaño lógico es 1/3 del tamaño físico.
