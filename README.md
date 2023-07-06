@@ -6,17 +6,17 @@
 
 1. [V] La siguiente declaración: `int** p` permite crear las siguientes estructuras de datos en memoria:
 	- Se crea:
-		- un puntero simple a simple (**p = 1)
+		- un puntero simple a simple (`**p = 1`)
 			```cpp
 			p = new int*;
 			*p = new int;
 			```
-		- un array de punteros (*p[i] = 1)
+		- un array de punteros (`*p[i] = 1`)
 			```cpp
 			p = new int*[];
 			for(): p[i] = new int;
 			```
-		- un array a un array (p[i][j] = 1)
+		- un array a un array (`p[i][j] = 1`)
 			```cpp
 			p = new int*[];
 			for(): p = new int[];
@@ -173,7 +173,7 @@ La implementación del operador de asignación debe liberar la memoria de la mat
 
 5. [F] Para almacenar 3841 datos en un conjunto de bits, debo crear un buffer de 480 bytes.
 
-	Falso. 480 * 8 = 3840, necesitamos un byte extra para almacenar el siguiente bit (dato).
+	Falso. `480 * 8 = 3840`, necesitamos un byte extra para almacenar el siguiente bit (dato).
 
 6. [F] `a.intersec(b+a) == a` es correcto.
 
