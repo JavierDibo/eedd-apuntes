@@ -16,11 +16,13 @@ Nodo
 	Dato
 	Puntero al siguiente nodo
 	
+Esquema de un nodo en una lista simplemente enlazada
+	T dato;
+	Nodo *sig;
+	
 Estructura de una lista enlazada
-	- Secuencia de nodos enlazados
-	- cabecera
-	- cola
-	- Ultimo nodo apunta a `nullptr`
+	Nodo<T> *cabecera;
+	Nodo<T> *cola;
 
 Casos especiales
 	- Lista vacía

@@ -150,42 +150,50 @@ Borrado arbitrario
 Constructor copia
 
 	1. Todo a nullptr
-	2. Tomo un iterador de la otra lista
-	3. Para cada nodo lo inserto al final
-	4. Avanzo el iterador
+	2. Creo nodo AUX = other.cabecera
+	3. Mientras AUX, insertarFinal
+	4. Avanzo AUX
 
 	ListaEnlazada<T>::ListaEnlazada(const ListaEnlazada<T> &other) {
+		
 		cabecera = cola = nullptr;
-		Nodo<T> *tmp = other.cabecera;
-		while (tmp != nullptr) {
-			this->insertarFinal(tmp->dato);
-			tmp = tmp->sig;
+		Nodo<T> *aux = other.cabecera;
+		
+		while (aux) {
+			this->insertarFinal(aux->dato);
+			aux = aux->sig;
 		}
 	}
 
 Operador de asignacion
 
-	1. Check si ya son iguales
-	2. Borrar lista actual
-	3. Copiar los elementos de la otra lista
-	4. Return *this
+	1. Check si tiene misma dir memoria
+	2. Mientras cabecera:
+		Creo nodo BORRAR = cabecera
+		Avanzo cabecera
+		delete BORRAR
+	3. Todo a nullptr
+	4. Creo nodo AUX = other.cabecera
+	5. Mietras AUX: insertarFinal
+	6. Return *this
 
 	ListaEnlazada<T>& ListaEnlazada<T>::operator=(ListaEnlazada<T> &other) {
 		
 		if (this == &other)
 			return *this;
 
-		while (cabecera != nullptr) {
-			Nodo<T>* tmp = cabecera;
+		while (cabecera) {
+			Nodo<T>* borrar = cabecera;
 			cabecera = cabecera->sig;
-			delete tmp;
+			delete borrar;
 		}
 		cabecera = cola = nullptr;
 
-		Nodo<T>* tmp = other.cabecera;
-		while (tmp != nullptr) {
-			this->insertarFinal(tmp->dato);
-			tmp = tmp->sig;
+		Nodo<T>* aux = other.cabecera;
+		
+		while (aux) {
+			insertarFinal(aux->dato);
+			aux = aux->sig;
 		}
 
 		return *this;

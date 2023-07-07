@@ -1,0 +1,218 @@
+Insercion
+	
+	Insercion al Principio
+	
+	1. Creo nodo NUEVO (0, cab)
+	2. Si NO cabecera, meto nodo
+	3. cab->ant = nuevo
+	4. cab = nuevo
+	
+		void insertarInicio(T &dato) {
+			
+			Nodo<T>* nuevo = new Nodo<T>(dato, 0, cabecera);
+			
+			if (!cabecera) {
+				cabecera = cola = nuevo;
+				return;
+			}
+			
+			cabecera->ant = nuevo;
+			cabecera = nuevo;
+		}
+	
+	Insercion al Final
+	
+	1. Creo nodo NUEVO (cola, 0)
+	2. Si NO cabecera, meto nodo
+	3. cola->sig = NUEVO
+	4. cola = NUEVO
+
+		void insertarFinal(T &dato) {
+			
+			Nodo<T>* nuevo = new Nodo<T>(dato, cola, 0);
+			
+			if (!cabecera) {
+				cola = cabecera = nuevo;
+				return;
+			}
+			
+			cola->sig = nuevo;
+			cola = nuevo;
+		}
+
+	
+	Insercion arbitraria
+	
+		1. Creo nodo AUX = it.nodo 
+		2. Si AUX == cabecera, insertarInicio
+		3. Si AUX == cola,insertarFinal
+		4. Creo nodo NUEVO (AUX->ant, AUX)
+		5. AUX->ant = NUEVO
+		6. NUEVO->ant->sig = NUEVO
+
+		void insertar(Iterador<T> &it, T &dato) {
+			
+			Nodo<T>* aux = it.nodo;
+			
+			if (aux == cabecera) {
+				insertarInicio(dato);
+				return;
+			}
+			
+			if (aux == cola) {
+				insertarFinal(dato);
+				return;
+			}
+				
+			Nodo<T>* nuevo = new Nodo<T>(dato, aux->ant, aux);
+			
+			aux->ant = nuevo;
+			nuevo->ant->sig = nuevo;
+		}
+		
+		
+Borrado
+	
+	Borrado al Principio
+	
+		1. Si NO cabecera, return
+		2. Si cabecera == cola, borro todo
+		3. Creo nodo BORRAR = cab->ant
+		4. cab = cab->sig
+		5. cab->ant = 0
+		6. delete BORRAR
+
+		void borrarInicio() {
+			
+			if(!cabecera)
+				return;
+			
+			if (cabecera == cola) {
+				delete cola;
+				cola = cabecera = nullptr;
+				return;
+			}
+		
+			Nodo<T>* borrar = cabecera->ant;
+			cabecera = cabecera->sig;
+			cabecera->ant = nullptr;
+			delete borrar;
+		}
+	
+	Borrado al Final
+	
+		1. Si NO cabecera, return
+		2. Si cabecera == cola, borro todo
+		3. Creo nodo BORRAR = cola
+		4. cola = cola->ant
+		5. cola->sig = 0
+		6. delete BORRAR
+	
+		void borrarFinal() {
+			
+			if (!cabecera)
+				return;
+				
+			if (cabecera == cola) {
+				delete cola;
+				cola = cabecera = nullptr;
+				return;
+			}
+			
+			Nodo<T>* borrar = cola;
+			cola = cola->ant;
+			cola->sig = nullptr;
+			delete borrar;		
+		}
+	
+	Borrado arbitrario
+	
+		1. Creo nodo BORRAR = it.nodo
+		2. Si NO cabecera, return
+		3. Si cabecera == cola, borro todo + actualizo it
+		4. Si BORRAR = cabecera, borrarInicio
+		5. Si BORRAR = cola, borrarFinal
+		6. Enlazo el anterior y el siguiente
+		7. actualizo it + delete BORRAR
+	
+		void borrar(Iterador<T> &it) {
+			
+			Nodo<T>* borrar = it.nodo;
+			
+			if (!cabecera)
+				return;
+			
+			if (cabecera == cola) {
+				cabecera = cola = nullptr;
+				delete borrar;
+				it.nodo = nullptr;
+				return;
+			}
+			
+			if (borrar == cabecera) {
+				borrarInicio();
+				return;
+			}
+			
+			if (borrar == cola) {
+				borrarFinal();
+				return;
+			}
+
+			borrar->ant->sig = borrar->sig;
+			borrar->sig->ant = borrar->ant;
+			it.siguiente()
+			delete borrar;
+		}
+	
+Constructor copia
+
+	1. Todo a nullptr
+	2. Creo nodo AUX = other.cabecera
+	3. Mientras AUX, insertarFinal
+	4. Avanzo AUX
+
+	ListaDEnlazada(const ListaDEnlazada &other) {
+		
+		cabecera = cola = nullptr;
+		
+        Nodo<T> *aux = other.cabecera;
+        while(aux) {
+            this->insertarFinal(aux->dato);
+            aux = aux->sig;
+        }
+    }
+
+Operador asignacion
+
+	1. Check si tiene misma dir memoria
+	2. Mientras cabecera:
+		Creo nodo BORRAR = cabecera
+		Avanzo cabecera
+		delete BORRAR
+	3. Todo a nullptr
+	4. Creo nodo AUX = other.cabecera
+	5. Mietras AUX: insertarFinal
+	6. Return *this
+
+	ListaDEnlazada &operator=(ListaDEnlazada &other) {
+		
+		if (this == &other)
+			return *this;
+		
+		while (cabecera) {
+			Nodo<T>* borrar = cabecera;
+			cabecera = cabecera->sig;
+			delete borrar;		
+		}		
+		cabecera = cola = nullptr;
+	
+		Nodo<T>* aux = other.cabecera;
+		
+		while (aux) {
+			insertarFinal(aux->dato);
+			aux = aux->sig;
+		}
+		
+		return *this;
+	}

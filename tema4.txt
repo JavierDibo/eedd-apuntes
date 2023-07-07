@@ -21,6 +21,10 @@ Vectores
 	Ordenar: O(log n) - Quicksort
 			 O(n^2) - Implementacion trivial	
 
+Esquema de un vector dinamico
+	int tamaL, tamaF;
+	int *mem;
+
 Busqueda binaria lineal
 	1. Declaro inf, sup, centro
 	2. While (inf <= sup):

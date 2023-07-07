@@ -211,3 +211,45 @@ Falso. A menos que el dato sea manipulado directamente, su posición en memoria 
 ---
 
 ## Tema 7
+
+1 [F] Una lista doblemente enlazada permite realizar busquedas binarias en tiempo O(log n) si los datos se encuentran
+ordenados.
+
+Falso. Para llegar al valor central tiene que recorrer la lista. Sería O(n).
+
+2 [F] Iterar sobre un vector dinámico es siempre más rápido que sobre una lista enlazada (simple o doble).
+
+Falso. Iterar sobre un vector dinamico consiste en rastrear memoria contigua.
+En una lista debes hacer saltos en memoria a traves de punteros, es más lento.
+
+3 [F] El siguiente código inserta correctamente en un caso genérico (lista con datos), un nuevo nodo apuntado por
+p por delante de la posición del nodo apuntado por q en una lista doblemente enlazada y circular.
+
+	p->siguiente = q;
+	p->anterior = q->anterior;
+	q->anterior = p;
+	p->anterior->siguiente = q;
+
+Falso. La ultima linea debería ser: "p->anterior->siguiente = P;".
+
+4 [V] Transferir todos los nodos de una lista doblemente enlazada lista1 al final de la lista doblemente enlazada lista2
+requiere tiempo O(1) (nota: lista1 queda vacía tras esta operación).
+
+Verdadero. Una lista se compone de dos punteros. Si se toma como cabecera y cola los nodos #1 y #n de lista1 en lista2,
+y se ponen cabecera y cola de lista1 a nullptr, de forma efectiva la lista2 contiene todos los nodos y lista1 queda vacía.
+
+5 [F] La siguiente implementación del constructor copia de una lista enlazada no contiene errores:
+
+	ListaEnlazada<T>::ListaEnlazada(const ListaEnlazada<T> &lista) {
+	
+		cabecera = lista.cabecera;
+		cola = lista.cola;
+	}
+	
+Falso. Sí contiene errores. En este caso se está renombrando la lista, en lugar de hacer una copia completa.
+Si se eliminiase la lista original, la lista copiada no debería de desaparecer como en este caso.
+
+6 [V] La implementación de las matrices dispersas es completamente distinta de las matrices ordinarias, estando
+basada en el uso de listas enlazadas.
+
+Verdadero. Las matrices dispersas se implementan mediante listas para evitar el uso ineficiente de memoria.
