@@ -301,3 +301,46 @@ Aunque si los vectores son aleatorios sería cuadrática O(n^2).
 O(1).
 
 Los vectores en STL no presentan insercion en O(1) al principio. Para esto se debería usar un deque.
+
+---
+
+## Tema 9
+
+1 [V] Un vector estático puede implementar eficientemente a pilas y colas estáticas.
+
+Verdadero. Se puede implementar una pila mediante un vector de forma trivial.
+Se puede implementar una cola de tamaño fijo con un vector usando un paradigma de vector circular.
+
+2 [V] Una lista simplemente enlazada puede implementar eficientemente a pilas y colas dinámicas.
+
+Verdadero. Una pila se puede implementar de haciendo push() mediante un insertarIncio. Y el pop() mediante un borrarInicio().
+Una cola se puede implementar haciendo push() mediante un insertarFinal(), y un pop() mediante borrarInicio().
+
+3 [V] Una deque puede implementar eficientemente a pilas y colas dinámicas.
+
+Verdadero. La implementación de pila se hace con un deque de forma estandar.
+La implementación de una cola dinámica se puede tambíen realizar con un deque.
+
+4 [V] Se usa una pila para resolver aquellos procesos recursivos que agotan la pila.
+
+Verdadero. Se puede usar una pila para eliminar la recursividad.
+
+5 [F] Una cola con prioridad siempre tendrá un push() en O(1) independientemente de la implementación concreta (vectores,
+vector de listas o listas de listas)
+
+Falso. Para hacer una insercion en una lista se tiene que hacer una insercion ordenada O(n).
+
+6 [F] Una stack o una queue se implementa por defecto sobre un std:list pero se puede cambiar en ambos casos el
+contenedor.
+
+Falso. Ambos se implementan de forma estandár mediante un deque. Aunque se puede instanciar a un list.
+
+7 [V] Para hacer que una priority_queue de STL considere como dato más prioritario al mayor, se debe definir con
+el operator greater
+
+Verdadero. EL greater asigna más prioridad a los valores mayores.
+
+8 [F] Necesito una pila para eliminar la recursividad de la sucesión de Fibonacci (Ejercicio 1)
+
+Falso. Se puede usar una estrategia de programación dinámica mediante un vector.
+Pero esto te lo enseñan el algoritmos, no EEDD...

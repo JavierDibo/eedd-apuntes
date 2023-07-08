@@ -1,0 +1,123 @@
+Pila
+	Estructura simple donde se introducen o sacan datos solo por el final
+	Pensarlas en vertical
+	
+funciones de pila
+	push() inserta un elemnto
+	pop() elimina un elemento
+	top() lee el elemento
+	
+Cola
+	Estructura simple donde se introducen datos por el principio y se sacan por el final
+	Pensarlas en horizontal - entran por la izda, salen por la derecha
+	
+Cola mediante vector circular
+	Se usan dos indices: inicio y fin
+	push() -> insertan en fin y lo adelanta
+	pop() -> inserta en inicio y lo adelanta
+	
+	Hay que conocer el tamaño maximo
+	
+Cola  dinámica
+	Si no se sabe el tamaño maximo
+	Usar una lisa simplemente enlazada
+	inicio = cabecera, fin = cola
+	
+Cola con prioridad
+	Cada dato tiene una prioridad
+	Se extrae el dato con mas prioridad, si no, FIFO
+
+Cola con prioridad mediante listas simples
+	pop: borrar inicio O(1)
+	push: insercion ordenada O(n)
+	
+Comparadores de STL
+	cola con prioridad requieren un comparador
+	- less<T> (por defecto)
+	- greater<T>
+	
+Heap
+	vector de listas
+	push O(1)
+	pop O(1)
+	
+pilas, colas y colaprio en STL
+	No soportan iteradores
+	
+	stack<int> pila
+	queue<int> cola
+	priority_queue
+	
+delcaracion alternativa en STL
+
+	queue<int, list<int> > cola
+	
+	Se especifica que se usara una lista para almacenar en vez del default (deque)
+
+	
+---
+
+1 [V] Un vector estático puede implementar eficientemente a pilas y colas estáticas.
+
+Verdadero. Se puede implementar una pila mediante un vector de forma trivial.
+Se puede implementar una cola de tamaño fijo con un vector usando un paradigma de vector circular.
+
+2 [V] Una lista simplemente enlazada puede implementar eficientemente a pilas y colas dinámicas.
+
+Verdadero. Una pila se puede implementar de haciendo push() mediante un insertarIncio. Y el pop() mediante un borrarInicio().
+Una cola se puede implementar haciendo push() mediante un insertarFinal(), y un pop() mediante borrarInicio().
+
+3 [V] Una deque puede implementar eficientemente a pilas y colas dinámicas.
+
+Verdadero. La implementación de pila se hace con un deque de forma estandar.
+La implementación de una cola dinámica se puede tambíen realizar con un deque.
+
+4 [V] Se usa una pila para resolver aquellos procesos recursivos que agotan la pila.
+
+Verdadero. Se puede usar una pila para eliminar la recursividad.
+
+5 [F] Una cola con prioridad siempre tendrá un push() en O(1) independientemente de la implementación concreta (vectores,
+vector de listas o listas de listas)
+
+Falso. Para hacer una insercion en una lista se tiene que hacer una insercion ordenada O(n).
+
+6 [F] Una stack o una queue se implementa por defecto sobre un std:list pero se puede cambiar en ambos casos el
+contenedor.
+
+Falso. Ambos se implementan de forma estandár mediante un deque. Aunque se puede instanciar a un list.
+
+7 [V] Para hacer que una priority_queue de STL considere como dato más prioritario al mayor, se debe definir con
+el operator greater
+
+Verdadero. EL greater asigna más prioridad a los valores mayores.
+
+8 [F] Necesito una pila para eliminar la recursividad de la sucesión de Fibonacci (Ejercicio 1)
+
+Falso. Se puede usar una estrategia de programación dinámica mediante un vector.
+Pero esto te lo enseñan el algoritmos, no EEDD...
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

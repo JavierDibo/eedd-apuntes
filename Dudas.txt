@@ -77,3 +77,10 @@ Falso. Si se ordenan los vectores se puede hacer una busqueda lineal O(n) para c
 
 Aunque si los vectores son aleatorios sería cuadrática O(n^2).
 
+## Tema 9
+
+2 [F] Una lista simplemente enlazada puede implementar eficientemente a pilas y colas dinámicas.
+
+Falso. Si bien, se puede implementar una cola usando una lista donde pop() elimina al principio 
+y push() mete al final. No se puede implementar un pila de forma eficiente, pues eliminar sería O(n)
+
