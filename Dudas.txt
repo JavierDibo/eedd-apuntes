@@ -60,4 +60,20 @@ Falso??.
 	- intersec se usa así.
 	- b+a deberia devolver un objeto correcto.
 	- operator== no está definido en la presentaciones...
+	
+## Tema 7
+
+2 [F] Iterar sobre un vector dinámico es siempre más rápido que sobre una lista enlazada (simple o doble).
+
+Falso. Iterar sobre un vector dinamico consiste en rastrear memoria contigua.
+En una lista debes hacer saltos en memoria a traves de punteros, es más lento.
+
+## Tema 8
+
+5 [F] Sean dos conjuntos a y b de palabras, implementados usando dos vectores de STL instanciados al tipo string.
+Entonces obtener el vector c = a ∩ b (palabras que están en ambos conjuntos) requiere un tiempo cuadrático.
+
+Falso. Si se ordenan los vectores se puede hacer una busqueda lineal O(n) para comparar los objetos.
+
+Aunque si los vectores son aleatorios sería cuadrática O(n^2).
 
