@@ -1,0 +1,229 @@
+Arboles
+	Busqueda eficiente
+	Nodo sin padre: raiz
+	Nodo sin hijo: hoja
+	
+Nodo hoja
+	Nodo de un arbol que no tiene hijos
+	
+Nodo raiz
+	Nodo unico de un arbol, que no tiene padre
+
+Altura de un nodo
+	Longitud del camino mas largo desde el nodo a una hoja
+
+Altura del arbol	
+	Altura del nodo raiz
+
+Profundidad de un nodo
+	Longitud del camino desde la raiz al nodo
+
+Orden de un arbol
+	Maximo numero de hijos que puede tener un nodo
+	
+Arbol binario
+	Arbol de orden 2
+	
+Esquema de un nodo binario
+
+	Nodo<T> *izq;
+	Nodo<T> *der;
+	T dato;
+	
+Esquema de un arbol binario
+	
+	Nodo<T> *raiz;
+	
+Recorridos
+	Preorden
+	Inorden
+	Postorden
+	
+	Nota: deben ser privadas
+	
+Preorden
+	
+	void Abb<T>::preorden(Nodo<T> *p) {
+	
+		print("Procesamiento");
+		preorden(p->izq);
+		preorden(p->der);
+	}
+	
+Inorden
+	
+	void Abb<T>::inorden(Nodo<T> *p) {
+	
+		inorden(p->izq);
+		print("Procesamiento");
+		inorden(p->der);
+	}
+	
+Postorden
+	
+	void Abb<T>::postorden(Nodo<T> *p) {
+		
+		postorden(p->izq);
+		postorden(p->der);
+		print("Procesamiento");
+	}
+	
+Orden de un arbol binario de busqueda (ABB)
+
+	Dado un nodo X:
+		- todo nodo Y a su izquierda cumple y < x
+		- todo nodo Z a su derecha cumple z > x
+	
+	No se repiten datos
+	
+Busqueda en un ABB (funcion privada)
+	
+	1. Si !nodo, return nullptr
+	2. Si nodo == dato, return
+	3. Si valor < nodo, nodo->izq
+	4. Si valor > nodo, nodo->der
+	
+	Nodo<T> *Abb<T>::buscaClave (T &ele, Nodo<T> *p){
+		if (!p)
+			return 0;
+		else if (ele < p->dato)
+			return buscaClave (ele, p->izq);
+		else if (ele > p-> dato)
+			return buscaClave (ele, p->der);
+		else return p;
+		
+	}
+	
+Busqueda en un ABB (funcion publica)
+
+	1. Llamo a privada con raiz
+	2. Si p, lo asigno a result + true
+	3. Si NO p, false
+
+	bool Abb<T>::buscar (T &ele, T &result){
+		Nodo<T> *p = buscaClave (ele, raiz);
+		if (p) {
+			result = p->dato;
+			return true;
+		}
+		return false;
+	}
+
+Insercion en un ABB (funcion privada)
+			
+	1. Si NO p, p = new nodo(ele) + true
+	2. Si ele < p, recursiva izquierda
+	3. Si ele > p, recursiva derecha
+	4. Si ==, false // duplicado
+	
+	bool Abb<T>::insertaDato(T &ele, Nodo<T>* &p) {
+		if (!p) {
+			p = new Nodo<T>(ele);
+			return true;
+		} else {
+			if (ele < p->dato)
+				return insertaDato(ele, p->izq);
+			else if (ele > p->dato)
+				return insertaDato(ele, p->der);
+		}
+		return false; // Elemento duplicado
+	}
+	
+Insercion en un ABB (funcion publica)
+
+	1. Llamo a privada con raiz
+
+	bool Abb<T>::insertar(T &ele) {
+		return insertaDato(ele, raiz);
+	}
+	
+Borrado en un ABB (funcion publica)
+	
+	template <class T>
+	bool Abb<T>::eliminar(T &ele) {
+		Nodo<T> *result = borraDato(ele, raiz);
+		if (result) {
+			return true;
+		}
+		return false;
+	}
+
+Borrado en un ABB (funcion privada)
+
+	1. Si p
+	2. Buscarlo
+	3. temp + Check hijos
+	4. Si ambos, borraMin
+	5. Borrar temp
+
+	template<class T>
+	Nodo<T>* Abb<T>::borraDato(T& ele, Nodo<T>*& p) {
+		if (p) {
+			if (ele < p->dato)
+				borraDato(ele, p->izq);
+			else if (ele > p->dato)
+				borraDato(ele, p->der);
+			else { // encontrado
+				Nodo<T>* temp = p;
+				if (!p->izq) // sin hijo a la izda
+					p = p->der;
+				else if (!p->der) // sin hijo a la decha
+					p = p->izq;
+				else if (p->izq && p->der) { // tiene ambos hijos
+					temp = borraMin(p->der);
+					p->dato = temp->dato;
+				}
+				delete temp; // borrar en todos los casos (también hoja)
+			}
+		}
+		return p;
+	}
+	
+Borrar en un ABB (funcion min)
+
+	template <class T>
+	Nodo<T>* Abb<T>::borraMin(Nodo<T>*& p) {
+		Nodo<T>* result;
+		
+		if (p) {
+			if (p->izq)
+				return borraMin(p->izq);
+			else {
+				result = p;
+				p = p->der;
+			}
+			
+			return result;
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -347,6 +347,8 @@ Pero esto te lo enseñan el algoritmos, no EEDD...
 
 ---
 
+## Tema 12
+
 1 [V] Implementar un heap mediante nodos y punteros al igual que el resto de árboles binarios tiene dos graves
 inconvenientes: consume mucha más memoria y la inserción en la siguiente posición libre del último nivel (durante
 los push) o el borrado de la última posición del último nivel (durante los pop) no podría implementarse en tiempo
@@ -389,3 +391,76 @@ Verdadero. Para la implementacion mediante arboles el peor caso es un arbol con 
 El mejor caso seria que no tenga padre.
 
 Aunque en el caso de la implementacion mediante vectores, es siempre O(1)
+
+---
+
+## Tema 13
+
+1 [V] Si la clase ClassA tiene el siguiente atributo: 
+
+	map<string, *ClassB> miMapa; 
+	
+entonces necesariamente la relación entre ClassA y ClassB es de asociación.
+
+Verdadero. Pues al ser punteros a objetos ya existentes, se asume que su ciclo de vida es independiente de ClassA.
+
+2 [F] Si esta sentencia es válida:
+
+	int nuevoValor = 7;
+	it = micontainer.find(clave);
+	(*it).second[i] = &nuevoValor;
+	
+Entonces micontainer puede tener esta definición: 
+
+	map <int, vector<int> >micontainer;
+	
+Falso, el vector subyacente debería tener el tipo *int. Ya que se le está asignando un 
+
+3[F] El objecto mc se define como: 
+
+	map <int, miClase> mc; 
+
+¿se podría realizar la siguiente operación sobre mc?
+	
+	map<int, miClase>::iterator it = mc. begin(); 
+	*(it).first = 5;
+	
+Falso. No se puede realizar un cambio de clave a un dato dentro de un mapa.
+
+4 [V] El contenedor de STL más adecuado para albergar las reservas de un restaurante para tener 
+acceso a éstas por fecha es un mapa de la siguiente forma: 
+
+	multimap <Fecha, Reserva>
+	
+Verdadero. Pues con un multimapa se pueden repetir claves (Fecha) ya que hay varias 
+mas de una reserva por día.
+
+5 [F] La correspondiente definición de una matriz dispersa en STL según la Lección 7 es: 
+
+	vector <list <int> > matrizDis;
+	
+Falso. Según la lección 7 la matriz dispersa se define como una lista de listas.
+	
+6 [F] La siguiente sentencia: 
+
+v["María"] = dato; 
+
+es válida si v representa a un deque.
+
+Falso. Si se intentase acceder a operador[] de un deque se devolvería mem["Maria"], esto no es un índice válido.
+Este tipo de asignación sería correcta para un mapa donde la clave sea un string.
+
+7 [V] Un map definido como: map<int, ClaseA> puede sustituirse por un set<ClaseA> si ClaseA tiene sobrecargado el
+operator< y la clave entera forma parte de la clase ClaseA.
+
+Verdadero. Si la clave forma parte de la clase A, se puede utilizar un set ya que hay un operator< definido.
+
+8 [V] Si en el caso anterior el operator< ya está usándose para otro tipo de ordenación sobre ClaseA, entonces
+se puede usar la definición: 
+
+	set<ClaseA, comparaClaseA>
+
+siendo comparaClaseA una clase de comparación para ClaseA.
+
+Verdadero. En este caso se dejaria de usar la operacion por defecto less<T>
+y se optaria por el operator() de la clase comparadora
