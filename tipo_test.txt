@@ -344,3 +344,48 @@ Verdadero. EL greater asigna más prioridad a los valores mayores.
 
 Falso. Se puede usar una estrategia de programación dinámica mediante un vector.
 Pero esto te lo enseñan el algoritmos, no EEDD...
+
+---
+
+1 [V] Implementar un heap mediante nodos y punteros al igual que el resto de árboles binarios tiene dos graves
+inconvenientes: consume mucha más memoria y la inserción en la siguiente posición libre del último nivel (durante
+los push) o el borrado de la última posición del último nivel (durante los pop) no podría implementarse en tiempo
+constante.
+
+Verdadero. Esta operacion debería realizar una busqueda lineal o logaritmica en el mejor de los casos.
+
+2 [V] La operación pop() es más eficiente en un heap que en una cola con prioridad montada mediante una lista de
+listas.
+
+Verdadero. pop() es O(log n) en un heap, mientras que pop() en una lista de listas es O(n)
+
+3 [F] La siguiente tabla referente a la eficiencia de las distintas implementaciones de una cola con prioridad es
+correcta (n es el número de datos y p el número de valores de prioridad distintos):
+
+	| Implementación   | Push    | Pop     |
+	|------------------|---------|---------|
+	| Vector de listas | O(1)    | O(p)    |
+	| Lista de listas  | O(p)    | O(1)    |
+	| Heap             | O(log n)| O(log n)|
+	
+Falso. En un vector de listas, un push es O(n).
+
+4 [V] Un heap permite obtener el dato con menor prioridad en O(1).
+
+Falso. Permite obtener el dato con MAYOR prioridad.
+
+5 [F] Un heap es un árbol binario equilibrado en altura.
+
+Falso. Eso es un AVL. Un heap es una arbol binario completo que cumple que cada nodo padre tiene >= prioridad que sus hijos
+
+6 [F] La unión de dos conjuntos disjuntos de tamaños n y m puede llevarse a cabo mediante una operación en O(1)
+
+Falso. Si bien puede existir el caso de que sean n=1 y m=1, la notacion de O grande implica el peor caso,
+es decir, si fuese n y m muy grande seria O(n)
+
+7 [V] La operación busca() en conjuntos disjuntos es O(n) y Ω(1)
+
+Verdadero. Para la implementacion mediante arboles el peor caso es un arbol con un solo nodo hijo por nodo.
+El mejor caso seria que no tenga padre.
+
+Aunque en el caso de la implementacion mediante vectores, es siempre O(1)
