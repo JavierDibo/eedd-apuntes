@@ -1,0 +1,89 @@
+Tabla de dispersión
+	Usa un vector subyacente
+	Valor de la clave se usa para calcular el índice del dato
+	
+Funciones 
+	Inserción
+	Borrado
+	Búsqueda
+	
+Función de dispersión
+	Función que mapea el valor de la clave a la pos de la tabla
+	Rango de la claves >>> Tam tabla
+	
+Buena función de dispersión
+	Bajo coste computacional
+	Determinista
+	Distribución uniforme
+	
+Colisión
+	Cuando la función asigna el mismo valor a dos claves distintas
+	
+Dispersión por plegamiento
+	Dividir el número grande y sumar sus dígitos
+
+Dispersión por centro del cuadrado 
+	Doblar un número y tomar sus numeros centrales (del medio)
+
+Dispersión de cadenas
+	djb2
+	
+Características de la dispersión
+	Siempre hay colisiones
+	Huecos en la tabla
+	
+Factor de carga (λ)
+	
+	λ = numElem / tamTabla
+	
+	Mantenerlo entre 0 y 0.7
+	
+Regla de las tablas de dispersión
+	
+	Tamaño de la tabla 1/3 mayor que el número de datos
+	
+Dispersión abierta
+	Las claves que repiten posición se almacenan en un tabla en su índice correspondiente
+	
+	Se declara un vector que contiene listas
+	Cada lista almacena entradas
+	Cada entrada es un par <clave, dato>
+
+Redispersar
+	Aumentar el tamaño de la tabla cuando se supera un factor de carga de 0.7
+	
+---
+	
+1 [F] Toda función de dispersión debe acabar con %tamaTabla
+
+Falso. Hay algunas funciones de dispersión (como la función de dispersión de cadenas) que no lo necesita.
+
+2 [F] El djb2 no es una función de dispersión de cadenas
+
+Falso. EL djb2 es una función de dispersión de cadenas.
+
+3[F] Si la tabla A tiene un lambda λ = 0.5 y en la tabla B, λ= 0.75, entonces la tabla B tiene más datos que la A.
+
+Falso. El factor de carga (λ) no indica lo llena que está la tabla, pero no la cantidad de datos que almacena.
+
+4 [V] Si la tabla A tiene un lambda λ = 0.5 y en la tabla B, λ= 0.75, entonces la tabla B está porcentualmente más llena
+que la A.
+
+Verdadero. El factor de carga nos indica que B está un 75% llena, mientras que A está un 50% llena, es decir, B esatá mas llena porcentualmente.
+
+5 [F] En STL la dispersión abierta se define como un list< list <Entrada <T> > >
+
+Falso. Se define mediante un vector de listas.
+
+6 [F] En dispersión abierta se sabe que la función de dispersión es buena conociendo el tamaño de las listas de
+entradas.
+
+Falso. Una buena función de dispersión tiene que determinista, uniforme y con bajo conste computacional.
+
+7 [V] El djb2 diferencia las posiciones de las letras de CASA y SACA mediante desplazamientos a nivel de bits con
+la cadena entrante.
+
+Verdadero.
+
+
+	

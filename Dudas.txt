@@ -101,3 +101,9 @@ El mejor caso seria que no tenga padre.
 
 Aunque en el caso de la implementacion mediante vectores, es siempre O(1)
 
+## Tema 14
+
+1 [F] Toda función de dispersión debe acabar con %tamaTabla
+
+Falso. Hay algunas funciones de dispersión (como la función de dispersión de cadenas) que no lo necesita.
+

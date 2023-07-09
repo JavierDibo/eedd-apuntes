@@ -464,3 +464,36 @@ siendo comparaClaseA una clase de comparación para ClaseA.
 
 Verdadero. En este caso se dejaria de usar la operacion por defecto less<T>
 y se optaria por el operator() de la clase comparadora
+
+## Tema 14
+
+1 [F] Toda función de dispersión debe acabar con %tamaTabla
+
+Falso. Hay algunas funciones de dispersión (como la función de dispersión de cadenas) que no lo necesita.
+
+2 [F] El djb2 no es una función de dispersión de cadenas
+
+Falso. EL djb2 es una función de dispersión de cadenas.
+
+3[F] Si la tabla A tiene un lambda λ = 0.5 y en la tabla B, λ= 0.75, entonces la tabla B tiene más datos que la A.
+
+Falso. El factor de carga (λ) no indica lo llena que está la tabla, pero no la cantidad de datos que almacena.
+
+4 [V] Si la tabla A tiene un lambda λ = 0.5 y en la tabla B, λ= 0.75, entonces la tabla B está porcentualmente más llena
+que la A.
+
+Verdadero. El factor de carga nos indica que B está un 75% llena, mientras que A está un 50% llena, es decir, B esatá mas llena porcentualmente.
+
+5 [F] En STL la dispersión abierta se define como un list< list <Entrada <T> > >
+
+Falso. Se define mediante un vector de listas.
+
+6 [F] En dispersión abierta se sabe que la función de dispersión es buena conociendo el tamaño de las listas de
+entradas.
+
+Falso. Una buena función de dispersión tiene que determinista, uniforme y con bajo conste computacional.
+
+7 [V] El djb2 diferencia las posiciones de las letras de CASA y SACA mediante desplazamientos a nivel de bits con
+la cadena entrante.
+
+Verdadero.
